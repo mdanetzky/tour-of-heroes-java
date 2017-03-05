@@ -26,7 +26,7 @@ public class JsonPAspect {
         return packAsJsonpResponse(callback, (String) result);
     }
 
-    private String getCallback() {
+    private static String getCallback() {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)
                 RequestContextHolder.currentRequestAttributes();
         if (servletRequestAttributes == null) {
@@ -40,9 +40,6 @@ public class JsonPAspect {
     }
 
     private static String packAsJsonpResponse(String callback, String response) {
-        if (callback != null) {
-            return callback + "(" + response + ");";
-        }
-        return response;
+        return (callback == null) ? response : callback + "(" + response + ");";
     }
 }
